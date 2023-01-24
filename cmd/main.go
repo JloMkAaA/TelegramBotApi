@@ -5,7 +5,9 @@ import (
 	"DotaFind/pkg/telegramm"
 	"database/sql"
 	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	_ "github.com/mattn/go-sqlite3"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -14,8 +16,11 @@ import (
 const patch = "data/sqlite.db"
 
 func main() {
+	if err := godotenv.Load(); err != nil {
+		log.Fatal(err)
+	}
 
-	bot, err := tgbotapi.NewBotAPI("5667089545:AAENcFYGOUdStzAN-IBYKPIcdfZSzAfOICI")
+	bot, err := tgbotapi.NewBotAPI(os.Getenv("TOKEN"))
 	if err != nil {
 		log.Panic(err)
 	}
